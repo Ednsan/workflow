@@ -8,8 +8,6 @@ import com.workflow.domain.*;
 import com.workflow.repositories.*;
 import com.workflow.repositories.SkillRepository;
 
-import javassist.tools.rmi.ObjectNotFoundException;
-
 @Service
 public class SkillService {
 	
@@ -17,10 +15,9 @@ public class SkillService {
 	SkillRepository skillRepo; 
 	
 
-	public Skill find(Integer id) throws ObjectNotFoundException {
-		Optional<Skill> obj = skillRepo.findById(id);  
-		return obj.orElseThrow(() -> new ObjectNotFoundException( 
-				"Objeto não encontrado! Id: " + id + ", Tipo: " + Skill.class.getName()));
+	public Skill find(Integer id) {
+		Optional<Skill> obj = skillRepo.findById(id);
+		return obj.orElse(null);
 	}
 	
 	

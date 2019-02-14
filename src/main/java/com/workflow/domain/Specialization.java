@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,8 +26,8 @@ public class Specialization implements Serializable {
 	private Integer id; 
 	private String name; 	
 	
-	@JsonIgnore	
-	@OneToMany
+	@JsonManagedReference	
+	@OneToMany(fetch = FetchType.LAZY)
 	private List<Skill> skills = new ArrayList<>();
 	
 	@ManyToMany
@@ -48,10 +49,8 @@ public class Specialization implements Serializable {
 		return id;
 	}
 
-	@Override
-	public String toString() {
-		return "Specialization [id=" + id + ", name=" + name + ", skills=" + skills + ", clients=" + clients + "]";
-	}
+	
+
 	public void setId(Integer id) {
 		this.id = id;
 	}

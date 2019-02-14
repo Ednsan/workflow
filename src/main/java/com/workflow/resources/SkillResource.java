@@ -17,8 +17,7 @@ import com.workflow.services.*;
 @RequestMapping(value="/skill")
 public class SkillResource{
  
-	@Autowired
-	
+	@Autowired	
 	private SkillService skillService;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
