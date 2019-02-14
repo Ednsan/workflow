@@ -24,7 +24,7 @@ public class Skill implements Serializable {
 	
 	
 	
-	@NotNull(message = "Specialization is necessary")
+	
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_specialization")
     @JsonIgnore
