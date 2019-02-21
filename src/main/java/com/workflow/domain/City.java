@@ -25,6 +25,8 @@ public class City implements Serializable {
 	private State state;
 
 	
+
+
 	//constructors
 	public City(Integer id, String name, State state) {
 		super();
@@ -37,6 +39,14 @@ public class City implements Serializable {
 	}
 
 	//gets and sets
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 	public State getState() {
 		return state;
 	}

@@ -26,8 +26,11 @@ public class Specialization implements Serializable {
 	private Integer id; 
 	private String name; 	
 	
+	
+
+
 	@JsonManagedReference	
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany
 	private List<Skill> skills = new ArrayList<>();
 	
 	@ManyToMany
@@ -38,7 +41,7 @@ public class Specialization implements Serializable {
 	public Specialization(Integer id, String name) {
 		super();
 		this.id = id;
-		this.name = name;
+		this.name = name;	
 	}
 	public Specialization() {
 	
@@ -61,7 +64,10 @@ public class Specialization implements Serializable {
 		this.name = name;
 	}
 	public List<Skill> getSkills() {
-		return skills;
+		   for(Skill skill : skills) {
+		        return skills;
+		    }
+		    return null;
 	}
 	public void setSkills(List<Skill> skills) {
 		this.skills = skills;
@@ -103,5 +109,12 @@ public class Specialization implements Serializable {
 			return false;
 		return true;
 	}
+	@Override
+	public String toString() {
+		return "Specialization [id=" + id + ", name=" + name + ", skills=" + skills + ", clients=" + clients + "]";
+	}
 	
-}
+	
+
+	}
+

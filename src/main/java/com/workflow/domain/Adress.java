@@ -1,6 +1,7 @@
 package com.workflow.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -31,7 +32,7 @@ public class Adress implements Serializable {
 	@ManyToMany
 	@JoinTable(name="CLIENT_ADRESS", joinColumns = @JoinColumn(name="adress_id")
 	, inverseJoinColumns = @JoinColumn(name="client_id")			)
-	private List<Client> clients; 
+	private List<Client> clients = new ArrayList<>();//VERIFICAR SE ISSO TEM SENTIDO 
 	
 	
 	//constructors	

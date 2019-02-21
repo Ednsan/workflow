@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,8 +19,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class OrderService implements Serializable {
 	private static final long serialVersionUID = 12345L;
-	//attr
 	
+	//attr
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Integer id; 
@@ -39,7 +40,8 @@ public class OrderService implements Serializable {
 	private Client clientFreela;
 
 	@OneToMany
-	private List<Client> freelancersCompeting; //freelancers concorrentes
+	@Column(name="freelancersConcorrentes")
+	private List<Client> freelancersCompeting = new ArrayList<>(); //freelancers concorrentes
  	
 	//constructors
 	public OrderService(Integer id, String description, Double valueInitial,

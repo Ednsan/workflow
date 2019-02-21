@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import com.workflow.domain.*;
 import com.workflow.repositories.*;
 import com.workflow.repositories.SkillRepository;
+import com.workflow.services.exceptions.ObjectNotFoundException;
+import com.workflow.services.exceptions.*;;
 
 @Service
 public class SkillService {
@@ -17,7 +19,7 @@ public class SkillService {
 
 	public Skill find(Integer id) {
 		Optional<Skill> obj = skillRepo.findById(id);
-		return obj.orElse(null);
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! id : " + id + " Skill  : " + Skill.class.getName()));
 	}
 	
 	

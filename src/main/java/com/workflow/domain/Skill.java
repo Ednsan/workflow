@@ -21,17 +21,14 @@ public class Skill implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id; 
-	
-	
-	
-	
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_specialization")
-    @JsonIgnore
-	private Specialization specialization;
-
 	private String name;
 	
+	@JsonBackReference
+	@ManyToOne
+    @JoinColumn(name = "id_specialization")
+	private Specialization specialization;
+
+
 	//constructors	
 	public Skill(Integer id, String name, Specialization specialization) {
 		super();

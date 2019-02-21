@@ -12,19 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.workflow.domain.*;
 import com.workflow.services.*;
 
-import javassist.tools.rmi.ObjectNotFoundException;
-
 
 @RestController
-@RequestMapping(value="/skill")
-public class SkillResource{
+@RequestMapping(value="/client")
+public class ClientResource{
  
 	@Autowired	
-	private SkillService skillService;
+	private ClientService clientService;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
-		Skill obj = skillService.find(id);
+		Client obj = clientService.find(id);
 		
 		return ResponseEntity.ok().body(obj);
 

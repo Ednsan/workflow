@@ -34,7 +34,7 @@ public class Client implements Serializable{
 	
 	@JsonIgnore
 	@ManyToMany
-	@JoinTable(name = "Client_Categoria",
+	@JoinTable(name = "client_category",
 	joinColumns = @JoinColumn(name = "client_id"),
 	inverseJoinColumns = @JoinColumn(name = "specialization_id")
 	)
@@ -42,7 +42,7 @@ public class Client implements Serializable{
 	
 
 	@OneToMany
-	private List<Skill> skills ; 	
+	private List<Skill> skills = new ArrayList<>() ; 	
 	
 
 	@JsonIgnore
