@@ -1,6 +1,8 @@
 package com.workflow.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,11 +10,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
 public class Skill implements Serializable {
@@ -20,21 +23,25 @@ public class Skill implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id; 
+	private Integer id;	
 	private String name;
-	
+ 
 	@JsonBackReference
-	@ManyToOne
-    @JoinColumn(name = "id_specialization")
-	private Specialization specialization;
-
-
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="specialization_id")
+	private Specialization specialization; 
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name="client_id") 
+	private List<Client> clients = new ArrayList<>(); 
+	
 	//constructors	
-	public Skill(Integer id, String name, Specialization specialization) {
+	public Skill(Integer id, String name,Specialization specialization ) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.specialization = specialization;
+		
 	}
 	
 	public Skill() {
@@ -63,8 +70,16 @@ public class Skill implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	 
-	//hash code, equals and toString
+
+	public List<Client> getClients() {
+		return clients;
+	}
+
+	public void setClients(List<Client> clients) {
+		this.clients = clients;
+	}
+
+	//hashcode and equals
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -90,11 +105,8 @@ public class Skill implements Serializable {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Skill [id=" + id + ", specialization=" + specialization + ", name=" + name + "]";
-	}
-
+	
+	
 
 	
 	

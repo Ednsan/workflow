@@ -13,25 +13,22 @@ import javax.persistence.ManyToOne;
 public class City implements Serializable {
 	private static final long serialVersionUID = 12345L;
 	
-	//attr
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id; 
-	private String name;
+	
+	private String nome;
 
 	//relations
 	@ManyToOne
 	@JoinColumn(name="state_id")
 	private State state;
 
-	
-
-
 	//constructors
-	public City(Integer id, String name, State state) {
+	public City(Integer id, String nome, State state) {
 		super();
 		this.id = id;
-		this.name = name;
+		this.nome = nome;
 		this.state = state;
 	}
 
@@ -40,13 +37,22 @@ public class City implements Serializable {
 
 	//gets and sets
 	
-	public String getName() {
-		return name;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setId(Integer id) {
+		this.id = id;
 	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
 	public State getState() {
 		return state;
 	}
@@ -59,21 +65,7 @@ public class City implements Serializable {
 		return serialVersionUID;
 	}
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getname() {
-		return name;
-	}
-
-	public void setname(String name) {
-		this.name = name;
-	}
+	
 	
 	//hashcode and equals
 	@Override

@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -18,6 +19,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Client implements Serializable{
@@ -32,28 +34,31 @@ public class Client implements Serializable{
 	private String cpf ; 
 	private String email; 
 	
-	@JsonIgnore
+	@JsonManagedReference
 	@ManyToMany
-	@JoinTable(name = "client_category",
-	joinColumns = @JoinColumn(name = "client_id"),
-	inverseJoinColumns = @JoinColumn(name = "specialization_id")
-	)
-	private List<Specialization> specializations = new ArrayList<>();
+	private List<Specialization> specializations = new ArrayList<>();	
 	
 
 	@OneToMany
-	private List<Skill> skills = new ArrayList<>() ; 	
+	private List<Skill> skills = new ArrayList<>();	
 	
-
-	@JsonIgnore
+	@JsonManagedReference
+	@OneToMany(cascade=CascadeType.ALL)
+	private List<Adress> adress = new ArrayList<>();	;
+	
 	@OneToMany
-	private List<OrderService> orderServices = new ArrayList<>();
-		
-
-	@ManyToMany
-	@JsonIgnore
-	private List<Adress> adress;
+	private List<OrderService> orderServices = new ArrayList<>();	;
 	
+	
+	public List<OrderService> getOrderServices() {
+		return orderServices;
+	}
+
+	public void setOrderServices(List<OrderService> orderServices) {
+		this.orderServices = orderServices;
+	}
+
+
 	
 	
 	@ElementCollection
@@ -131,14 +136,6 @@ public class Client implements Serializable{
 		this.specializations = specializations;
 	}
 	
-
-	public List<OrderService> getOrderServices() {
-		return orderServices;
-	}
-
-	public void setOrderServices(List<OrderService> orderServices) {
-		this.orderServices = orderServices;
-	}
 	//hashcode and equals
 	@Override
 	public int hashCode() {

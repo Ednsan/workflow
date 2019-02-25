@@ -1,7 +1,6 @@
 package com.workflow.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -20,9 +19,8 @@ public class State implements Serializable{
 	private String nome;
 	
 	@OneToMany
-	List<City> cities = new ArrayList<>(); 
+	List<City> cities; 
 	
-
 	//constructors
 	public State(Integer id, String nome) {
 		super();
@@ -49,14 +47,7 @@ public class State implements Serializable{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-	public List<City> getCities() {
-		return cities;
-	}
-	public void setCities(List<City> cities) {
-		this.cities = cities;
-	}
-	
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -86,6 +77,12 @@ public class State implements Serializable{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+	public List<City> getCities() {
+		return cities;
+	}
+	public void setCities(List<City> cities) {
+		this.cities = cities;
 	}
 	
 	

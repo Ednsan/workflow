@@ -1,9 +1,9 @@
 package com.workflow.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,36 +11,40 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.ManyToAny;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-@Table(name="ADRESS")
 public class Adress implements Serializable {
 	private static final long serialVersionUID = 12345L; 
-
-	//attr
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id; 
+	
 	private String street; 
 	private String discrict ; 
 	private String number; 
 	private String complement;
 	private String postalCode; 
-	private City city;  //nao precisa de um ponteiro para o estado, ja que a cidade aponta para o mesmo.
+	
+	@JsonBackReference
+	@ManyToOne(cascade=CascadeType.ALL)
+	private Client client; 
+	
+	@ManyToOne
+	@JoinColumn(name="city_id")
+	private City city;  //nao precisa de um ponteiro para o 	estado, ja que a cidade aponta para o estado
 
-	@ManyToMany
-	@JoinTable(name="CLIENT_ADRESS", joinColumns = @JoinColumn(name="adress_id")
-	, inverseJoinColumns = @JoinColumn(name="client_id")			)
-	private List<Client> clients = new ArrayList<>();//VERIFICAR SE ISSO TEM SENTIDO 
-	
-	
 	//constructors	
 	public Adress() {
 	
 	}
 	public Adress(Integer id, String street, String discrict, String number, String complement, String postalCode,
-			 City city) {
+			 Client client, City city) {
 		super();
 		this.id = id;
 		this.street = street;
@@ -48,7 +52,7 @@ public class Adress implements Serializable {
 		this.number = number;
 		this.complement = complement;
 		this.postalCode = postalCode;
-		
+		this.client = client; 		
 		this.city = city;
 	}
 
@@ -89,11 +93,11 @@ public class Adress implements Serializable {
 	public void setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
 	}
-	public List<Client> getClient() {
-		return clients;
+	public Client getClient() {
+		return client;
 	}
-	public void setClient(List<Client> clients) {
-		this.clients = clients;
+	public void setClient(Client client) {
+	this.client = client;
 	}
 	public City getCity() {
 		return city;
@@ -101,13 +105,6 @@ public class Adress implements Serializable {
 	public void setCity(City city) {
 		this.city = city;
 	}
-	public List<Client> getClients() {
-		return clients;
-	}
-	public void setClients(List<Client> clients) {
-		this.clients = clients;
-	}
-
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}

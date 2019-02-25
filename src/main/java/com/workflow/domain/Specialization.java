@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -26,22 +27,26 @@ public class Specialization implements Serializable {
 	private Integer id; 
 	private String name; 	
 	
-	
 
-
-	@JsonManagedReference	
-	@OneToMany
+	@JsonManagedReference
+	@OneToMany(mappedBy="specialization", fetch = FetchType.LAZY)
 	private List<Skill> skills = new ArrayList<>();
 	
+	@JsonBackReference
 	@ManyToMany
-	private List<Client> clients = new ArrayList<>();
+	private List<Client> clients = new ArrayList<>(); 
 	
-
+	public List<Client> getClients() {
+		return clients;
+	}
+	public void setClients(List<Client> clients) {
+		this.clients = clients;
+	}
 	//constructors
 	public Specialization(Integer id, String name) {
 		super();
 		this.id = id;
-		this.name = name;	
+		this.name = name;
 	}
 	public Specialization() {
 	
@@ -51,8 +56,6 @@ public class Specialization implements Serializable {
 	public Integer getId() {
 		return id;
 	}
-
-	
 
 	public void setId(Integer id) {
 		this.id = id;
@@ -64,23 +67,11 @@ public class Specialization implements Serializable {
 		this.name = name;
 	}
 	public List<Skill> getSkills() {
-		   for(Skill skill : skills) {
-		        return skills;
-		    }
-		    return null;
+		return skills;
 	}
 	public void setSkills(List<Skill> skills) {
 		this.skills = skills;
-	}	
-	
-	public List<Client> getClients() {
-			return clients;
 	}
-	
-	public void setClients(List<Client> clients) {
-			this.clients = clients;
-	}
-	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -109,12 +100,5 @@ public class Specialization implements Serializable {
 			return false;
 		return true;
 	}
-	@Override
-	public String toString() {
-		return "Specialization [id=" + id + ", name=" + name + ", skills=" + skills + ", clients=" + clients + "]";
-	}
 	
-	
-
-	}
-
+}
