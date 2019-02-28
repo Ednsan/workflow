@@ -28,14 +28,15 @@ public class SkillResource{
 	@Autowired	
 	private SkillService skillService;
 	
+	//OBTEM UMA SKILL VIA GET
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+	public ResponseEntity<Skill> find(@PathVariable Integer id) {
 		Skill obj = skillService.find(id);
-		
+
 		return ResponseEntity.ok().body(obj);
 
 	}
-	
+	//CRIA UMA SKILL VIA POST
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@RequestBody Skill obj) {
 	obj = skillService.insert(obj);
@@ -43,8 +44,16 @@ public class SkillResource{
 		.path("/{id}").buildAndExpand(obj.getId()).toUri();
 	return ResponseEntity.created(uri).build();
 }
+	//ATUALIZA UMA SKILL VIA PUT
+	@RequestMapping(value="/{id}",method=RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody Skill obj, @PathVariable Integer id){
+		obj.setId(id);
+		obj = skillService.update(obj);
+		return ResponseEntity.noContent().build();
+	}
 }
-	
+
+
 
 
 

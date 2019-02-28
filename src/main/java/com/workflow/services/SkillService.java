@@ -31,5 +31,9 @@ public class SkillService {
 		return skillRepo.save(obj);
 	}
 	
+	public Skill update(Skill obj) {
+		find(obj.getId());
+		return 	skillRepo.save(obj);
+	}
 	
 }
