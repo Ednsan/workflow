@@ -37,7 +37,7 @@ public class Adress implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name="city_id")
-	private City city;  //nao precisa de um ponteiro para o 	estado, ja que a cidade aponta para o estado
+	private City city;  //nao precisa de um ponteiro para o estado, ja que a cidade aponta para o estado
 
 	//constructors	
 	public Adress() {

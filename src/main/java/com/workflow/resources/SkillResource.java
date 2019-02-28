@@ -51,8 +51,15 @@ public class SkillResource{
 		obj = skillService.update(obj);
 		return ResponseEntity.noContent().build();
 	}
+
+	//DELETA UMA SKILL VIA DELETE
+	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
+		skillService.delete(id);
+		return ResponseEntity.noContent().build();
 }
 
+}
 
 
 

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.workflow.domain.*;
 import com.workflow.repositories.*;
 import com.workflow.repositories.SkillRepository;
-import com.workflow.services.exceptions.ObjectNotFoundException;
 import com.workflow.services.exceptions.*;;
 
 @Service
@@ -36,4 +35,14 @@ public class SkillService {
 		return 	skillRepo.save(obj);
 	}
 	
+	public void delete(Integer id) {
+		find(id);
+		try {
+			skillRepo.deleteById(id);
+		}
+		catch (DataIntegrityException e) {
+			throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos");
+		}
+	}
+
 }
