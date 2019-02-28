@@ -10,6 +10,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,7 +40,7 @@ public class Client implements Serializable{
 	private List<Specialization> specializations = new ArrayList<>();	
 	
 
-	@OneToMany
+	@OneToMany(fetch=FetchType.LAZY)
 	private List<Skill> skills = new ArrayList<>();	
 	
 	@JsonManagedReference

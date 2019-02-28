@@ -28,7 +28,7 @@ public class Specialization implements Serializable {
 	private String name; 	
 	
 
-	@JsonManagedReference
+	@JsonIgnore
 	@OneToMany(mappedBy="specialization", fetch = FetchType.LAZY)
 	private List<Skill> skills = new ArrayList<>();
 	

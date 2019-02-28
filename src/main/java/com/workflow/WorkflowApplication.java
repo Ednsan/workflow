@@ -1,6 +1,8 @@
 package com.workflow;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -17,6 +19,7 @@ import com.workflow.domain.State;
 import com.workflow.repositories.AdressRepository;
 import com.workflow.repositories.CityRepository;
 import com.workflow.repositories.ClientRepository;
+import com.workflow.repositories.OrderServiceRepository;
 import com.workflow.repositories.SkillRepository;
 import com.workflow.repositories.SpecializationRepository;
 import com.workflow.repositories.StateRepository;
@@ -45,7 +48,8 @@ public class WorkflowApplication implements CommandLineRunner{
 	@Autowired
 	private CityRepository cityRepo;
 	
-	
+	@Autowired
+	private OrderServiceRepository orderServiceRepo;
 	
 	
 	
@@ -59,13 +63,13 @@ public class WorkflowApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		
-		//SPECIALIZATIONS
+		//INSTANTIATE SPECIALIZATIONS
 		Specialization spec1 = new Specialization(null, "Desenvolvimento Web ");
 		Specialization spec2  = new Specialization(null, "Designer ");
 		Specialization spec3 = new Specialization(null, "Marketing ");
 		Specialization spec4 = new Specialization(null, "Outros ");
 		 
-		//SKILLS
+		//INSTANTIATE SKILLS
 		Skill skill1 = new Skill(null, "Ruby ", spec1);
 		Skill skill2 = new Skill(null, "PHP 7 ", spec1);
 		Skill skill3 = new Skill(null, "Adobe Photoshop ", spec2);
@@ -73,11 +77,11 @@ public class WorkflowApplication implements CommandLineRunner{
 		Skill skill5 = new Skill(null, "Construction worker ", spec4);
 		Skill skill6 = new Skill(null, "Instalador de antenas ", spec4);
 		
-		//ESTATES AND CITIES
+		//INSTANTIATE ESTATES AND CITIES
 		State st1 = new State(null, "Rio de Janeiro");
 		City city1 = new City(null, "Sao joao de meriti", st1);
 		
-		//NEW CLIENT
+		//INSTANTIATE CLIENT AND ADDRESSS
 		Client cli1 = new Client (null, "Joao Batista", "73703756098", "joaobaptista@gmail.com");	
 		Adress adress = new Adress(null, "Rua Ministro Joao Alberto", "Jardim Meriti", "148", "casa4", "25555-230", cli1, city1);
 		
@@ -97,12 +101,21 @@ public class WorkflowApplication implements CommandLineRunner{
 			
 		
 		
+		//INSTANTIATE ORDERSERVICE
+
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); 
+ 
+		OrderService order1 = new OrderService(null, "LogoMarca para Site de Pet " , 799.99 , 999.99, sdf.parse("30/09/2017"),sdf.parse("10/10/2017"), cli1, cli1); 
+		
+		
+		
 		StateRepo.saveAll(Arrays.asList(st1));
 		cityRepo.saveAll(Arrays.asList(city1));		
 		specializationRepo.saveAll(Arrays.asList(spec1, spec2, spec3, spec4));
 		skillRepo.saveAll(Arrays.asList(skill1, skill2, skill3, skill4, skill5, skill6));
 		clientRepo.saveAll(Arrays.asList(cli1));
 		adressRepo.saveAll(Arrays.asList(adress));
+		orderServiceRepo.saveAll(Arrays.asList(order1));
 	}	
 
 }

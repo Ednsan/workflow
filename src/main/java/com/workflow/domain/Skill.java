@@ -26,11 +26,12 @@ public class Skill implements Serializable {
 	private Integer id;	
 	private String name;
  
-	@JsonBackReference
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="specialization_id")
 	private Specialization specialization; 
 	
+	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name="client_id") 
 	private List<Client> clients = new ArrayList<>(); 
