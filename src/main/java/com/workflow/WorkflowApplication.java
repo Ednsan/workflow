@@ -77,7 +77,8 @@ public class WorkflowApplication implements CommandLineRunner{
 		Skill skill5 = new Skill(null, "Construction worker ", spec4);
 		Skill skill6 = new Skill(null, "Instalador de antenas ", spec4);
 		
-	
+		
+		
 		//INSTANTIATE ESTATES AND CITIES
 		State st1 = new State(null, "Rio de Janeiro");
 		City city1 = new City(null, "Sao joao de meriti", st1);

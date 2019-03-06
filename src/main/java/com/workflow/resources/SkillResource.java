@@ -2,6 +2,7 @@ package com.workflow.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ import com.workflow.domain.*;
 import com.workflow.services.*;
 
 import javassist.tools.rmi.ObjectNotFoundException;
-
+import com.workflow.dto.*;
 
 @Controller
 @RestController
@@ -58,7 +59,14 @@ public class SkillResource{
 		skillService.delete(id);
 		return ResponseEntity.noContent().build();
 }
-
+	
+	//LISTAR TODAS SKILLS 
+	@RequestMapping(method=RequestMethod.GET)
+	public ResponseEntity<List<SkillDTO>> findAll(){
+		List<Skill> list = skillService.findAll();
+		List<SkillDTO> listDto = list.stream().map(obj -> new SkillDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
+	}
 }
 
 
