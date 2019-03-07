@@ -36,8 +36,9 @@ public class Skill implements Serializable {
 	@JoinColumn(name="client_id") 
 	private List<Client> clients = new ArrayList<>(); 
 	
+	
 	//constructors	
-	public Skill(Integer id, String name,Specialization specialization ) {
+	public Skill(Integer id, String name, Specialization specialization) {
 		super();
 		this.id = id;
 		this.name = name;

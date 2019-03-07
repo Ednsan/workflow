@@ -35,7 +35,7 @@ public class Client implements Serializable{
 	private String cpf ; 
 	private String email; 
 	
-	@JsonManagedReference
+	@JsonIgnore
 	@ManyToMany
 	private List<Specialization> specializations = new ArrayList<>();	
 	

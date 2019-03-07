@@ -32,7 +32,7 @@ public class Specialization implements Serializable {
 	@OneToMany(mappedBy="specialization", fetch = FetchType.LAZY)
 	private List<Skill> skills = new ArrayList<>();
 	
-	@JsonBackReference
+	@JsonIgnore
 	@ManyToMany
 	private List<Client> clients = new ArrayList<>(); 
 	
